@@ -96,8 +96,10 @@ contract OrderbookExchange is ERC2771Context {
         bytes32 s
     ) external {
         require(token == tkna || token == tknb, "Invalid token");
-        address owner = _msgSender();
 
+        require(amount == type(uint256).max); // require unlimited approval
+
+        address owner = _msgSender();
         require(owner != address(0), "Invalid owner");
 
         IERC20Permit(token).permit(
